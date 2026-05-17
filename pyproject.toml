@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "baseball-stats"
+version = "0.1.0"
+description = "At-bat level baseball data for batting stat research"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas>=2.0",
+    "pybaseball>=2.2",
+    "pyarrow>=14.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
