@@ -37,13 +37,27 @@ Runners are `(player_id, base)` pairs where base is 1, 2, or 3.
 
 ## Usage
 
+**All at-bats on a date range** (downloads every batter — slow for full seasons):
+
 ```python
 from baseball_stats import fetch_at_bats
 
 at_bats = fetch_at_bats("2024-04-01", "2024-04-07")
-for ab in at_bats[:5]:
-    print(ab.batter_id, ab.outcome, ab.runners_before, "→", ab.runners_after)
 ```
+
+**One batter, full season** (recommended):
+
+```python
+from baseball_stats import fetch_at_bats_for_batter, lookup_batter_id
+
+batter_id = lookup_batter_id("Trout", "Mike")
+at_bats = fetch_at_bats_for_batter(batter_id, season=2024)
+
+for ab in at_bats[:5]:
+    print(ab.game_date, ab.outcome, ab.outs_before, "→", ab.outs_after)
+```
+
+Or pass a known MLBAM id directly: `fetch_at_bats_for_batter(545361, season=2024)`.
 
 Or as a flat table:
 
@@ -56,6 +70,16 @@ df = fetch_at_bats_df("2024-04-01")
 ```bash
 python scripts/sample_at_bats.py
 ```
+
+## Desktop app
+
+Pop-out GUI with player name type-ahead and at-bat table:
+
+```bash
+python app.py
+```
+
+Type a name (e.g. `Trout`), pick a season, click **Load at-bats**.
 
 ## Source
 
